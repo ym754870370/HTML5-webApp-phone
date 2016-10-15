@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
+		<meta name="format-detection" content="telephone=no"><!-- 格式识别限制，防止一连串数字高亮 -->
+		<link rel="stylesheet" href="css/reset.css"><!-- 样式重置 -->
+		<style type="text/css">
+			html{
+				height: 100%;
+				width: 100%;
+				overflow-x: hidden; /*由于body设置超出隐藏导致无法滚动，所以需要在上级进行横向设定，去除无法滚动效果，为什么可以这样设置？*/
+			}
+			body{
+				text-align: left;
+				width: 100%;
+				overflow: hidden; /*防止文字横向溢出*/
+				background: #e9dfc7;
+			}
+			.m-read-content{
+				font-size: 14px;
+				color: #555;
+				line-height: 31px;
+				padding: 15px;
+			}
+			.m-read-content h4{
+				font-size: 20px;
+				color: #736357;
+				border-bottom: solid 1px #736357;
+				letter-spacing: 2px;/*字符间距*/
+				margin: 0 0 1em 0;
+			}
+			.m-read-content p{
+				text-indent: 2em;
+				margin: 0.5em 0;
+				letter-spacing: 0px;
+				line-height: 24px;
+			}
+			.u-tab{
+				height: 34px;
+        margin: 10px auto;
+        line-height: 34px;
+        border-radius: 8px;
+        border: 1px solid #858382;
+        font-size: 12px;
+        background: #000; 
+        opacity: .9;
+			}
+			.u-tab li{
+				list-style: none;
+				display: inline-block;
+				width: 49%;
+				text-align: center;
+				border-right: solid 1px #858382;
+				color: #fff;
+			}
+			.u-tab li:nth-child(2){
+				border-right: none;
+			}
+			.m-button-bar{
+				width: 70%;
+				max-width: 800px;
+				padding: 5px;
+				margin: 10px auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="root" class="container">
+		  <div id="top_nav" class="top-nav">
+		  	<div class="icon-back"></div>
+		  	<div class="nav-title">返回书架</div>
+		  </div>
+			<div id="fiction_chapter_title" class="m-chapter-title"></div>
+			<div id="fiction_container" class="m-read-content">
+			  <h4>既然是共享关系</h4>
+        <p>
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        </p>
+        <p>
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        </p>
+        <p>
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        </p>
+        <p>
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
+        </p>
+			</div>
+			<div class="m-button-bar">
+				<ul class="u-tab">
+					<li id="prev_button">上一章</li>
+					<li id="next_button">下一章</li>
+				</ul>
+			</div>
+		</div>
+		<script src="lib/zepto.min.js"></script><!-- 用这个框架去支持jquery -->
+		<script>
+			window.jQuery = $;
+		</script>
+		<script src="js/jquery.base64.js"></script><!-- 数据解码 -->
+		<script src="js/jquery.jsonp.js"></script><!-- 跨域请求 -->
+
+		<script>
+			
+		</script>
+	</body>
+</html>
