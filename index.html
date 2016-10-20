@@ -63,7 +63,7 @@
 				padding: 5px;
 				margin: 10px auto;
 			}
-			.top-nav{
+			.top_nav{
 				position: fixed;
 				top: 0;
 				height: 50px;
@@ -86,14 +86,14 @@
 				left: 42px;
 				color: #d5d5d6;
 			}
-			.bottom-nav{
+			.bottom_nav{
 				position: fixed;
 				bottom: 0;
 				width: 100%;
 				height: 80px;
 				background: #000;
 			}
-			.bottom-nav-box{
+			.bottom_nav-box{
 				display: inline-block;
 				width: 32%;
 				text-align: center;
@@ -205,11 +205,23 @@
 			.yellow{
 				background: yellow;
 			}
+			.article-action-mid{
+				position: fixed;
+				width: 100%;
+				height: 40%;
+				z-index: 10002;
+				top: 30%;
+			}
 		</style>
 	</head>
 	<body>
 		<div id="root" class="container">
-		  <div id="top-nav" class="top-nav">
+
+			<div class="m-article-action">
+        <div class="article-action-mid" id="action-mid"></div>		
+			</div>
+		  
+		  <div id="top_nav" class="top_nav" style="display:none">
 		  	<div class="icon-back"></div>
 		  	<div class="nav-title">返回书架</div>
 		  </div>
@@ -239,8 +251,8 @@
 					<li id="next-button">下一章</li>
 				</ul>
 			</div>
-			<div class="nav-pannel-bk"></div>
-			<div id="font-container" class="nav-pannel">
+			<div class="nav-pannel-bk" style="display: none"></div>
+			<div id="font-container" class="nav-pannel" style="display: none">
 				<div class="child-mod">
 					<span>字号</span>
 					<button id="large-font" class="font-size-button">大</button>
@@ -265,18 +277,18 @@
 					</div>
 				</div>
 			</div>
-			<div class="bottom-nav">
-				<div id="bottom-nav-catalog" class="bottom-nav-box">
+			<div class="bottom_nav" style="display:none">
+				<div id="bottom_nav-catalog" class="bottom_nav-box">
 					<div class="nav-catalog-box">
 						<div class="icon-catalog"></div>
 						<div class="nav-list">目录</div>
 					</div>
 				</div>
-				<div id="bottom-nav-typeface" class="bottom-nav-box">
+				<div id="bottom_nav-typeface" class="bottom_nav-box">
 					<div class="icon-typeface"></div>
 					<div class="nav-list">字体</div>
 				</div>
-				<div id="bottom-nav-catalog" class="bottom-nav-box">
+				<div id="bottom_nav-catalog" class="bottom_nav-box">
 					<div class="icon-day"></div>
 					<div class="nav-list">白天</div>
 				</div>
@@ -300,12 +312,66 @@
 						return localStorage.setItem(prefix + key,val)
 					}
 					return {
-						StorageGetter: StorageGetter;
-						StorageSetter: StorageSetter;
+						StorageGetter: StorageGetter,
+						StorageSetter: StorageSetter//暴露出封装的函数
 					}
-				})
-			})();//闭包
+				})();//这里闭包的作用是？？？？？我的理解是把函数封装起来不可被查看
+				
+				var Dom = {
+					top_nav: $('#top_nav'),
+					bottom_nav: $('.bottom_nav'),
+					nav_pannel_bk: $('.nav-pannel-bk'),
+					font_container: $('#font-container')
+				};
+				var Win = $(window);
+				var Doc = $(document);
+				function main(){
+					//todo 整个项目的入口函数
+					EventHanlder();
+				}
 
+				function RederModel(){
+					//todo 实现和阅读器相关的数据交互的方法
+
+				}
+
+				function ReaderBaseFrame(){
+					//渲染基本的UI结构
+
+				}
+
+				function EventHanlder(){
+					//交互的事件绑定
+					$('#action-mid').click(function(){
+						if (Dom.top_nav.css('display') == 'none') {
+							Dom.bottom_nav.show();
+							Dom.top_nav.show();
+						} else {
+							Dom.top_nav.hide();
+							Dom.bottom_nav.hide();
+							Dom.nav_pannel_bk.hide();
+							Dom.font_container.hide();
+						}
+					})
+					Win.scroll(function(){
+						Dom.top_nav.hide();
+						Dom.bottom_nav.hide();
+						Dom.nav_pannel_bk.hide();
+						Dom.font_container.hide();
+					})
+					$('#bottom_nav-typeface').click(function(){
+						if (Dom.nav_pannel_bk.css('display') == 'none') {
+							Dom.nav_pannel_bk.show();
+							Dom.font_container.show();
+						} else {
+							Dom.nav_pannel_bk.hide();
+							Dom.font_container.hide();
+						}
+					})
+				}
+
+				main();
+			})();//闭包
 
 		</script>
 	</body>
