@@ -352,7 +352,7 @@
 						getFictionInfo(function(){
 							getCurCharpterContent(Chapter_id,function(data){
 								//to do 拿到数据后做数据渲染
-								UIcallback && UIcallback(data);
+								UIcallback && UIcallback(data)
 							});
 						})
 					}
@@ -476,6 +476,7 @@
 
 					$('#inext-button').click(function(){
 						rederModel.nextChapter(function(data){
+							console.log('next');
 							rederUI(data);
 						});
 					});
