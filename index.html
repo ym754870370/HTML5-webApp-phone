@@ -227,28 +227,11 @@
 		  </div>
 			<div id="fiction-chapter-title" class="m-chapter-title"></div>
 			<div id="fiction-container" class="m-read-content">
-			  <h4>既然是共享关系</h4>
-        <p>
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        </p>
-        <p>
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        </p>
-        <p>
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        </p>
-        <p>
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        	 因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。因为aaa属性被称为类属性，既然是类属性，那么根据从C++/Java这种静态语言使用的经验来判断，类属性应该是为其实例所共享的。很自然的，既然是共享关系，那么从类的层次改变aaa的值，自然其实例的aaa的值也要跟着变化了。
-        </p>
 			</div>
 			<div class="m-button-bar">
 				<ul class="u-tab">
-					<li id="prev-button">上一章</li>
-					<li id="next-button">下一章</li>
+					<li id="iprev-button">上一章</li>
+					<li id="inext-button">下一章</li>
 				</ul>
 			</div>
 			<div class="nav-pannel-bk" style="display: none"></div>
@@ -308,10 +291,27 @@
 					var StorageGetter = function(key){
 						return localStorage.getItem(prefix + key);
 					}
+
 					var StorageSetter = function(key,val){
 						return localStorage.setItem(prefix + key,val)
 					}
+
+					var getBSONP = function(url,callback){
+						return $.jsonp({//插件提供的功能
+							url: url,//请求地址
+							cache: true,
+							callback: 'duokan_fiction_chapter',//服务器会返回包含数据的方法，和上面函数传递进来的callback并不时同一个
+							success: function(result){//当请求成功后获得结果集
+								var data = $.base64.decode(result);//用base64进行解码成json数据
+								var json = decodeURIComponent(escape(data));
+								//escape() 函数可对字符串进行编码，这样就可以在所有的计算机上读取该字符串，decodeURIComponent()对url进行解码
+								callback(json);
+							}
+						})
+					}
+
 					return {
+						getBSONP: getBSONP,
 						StorageGetter: StorageGetter,
 						StorageSetter: StorageSetter//暴露出封装的函数
 					}
@@ -325,19 +325,98 @@
 				};
 				var Win = $(window);
 				var Doc = $(document);
+				var rederModel;
+				var rederUI;
+				var initFontSize = Util.StorageGetter('font_size');
+				initFontSize = parseInt(initFontSize);
+				if (!initFontSize) {
+					initFontSize = 14;
+				};
+				$('#fiction-container').css('font-size',initFontSize);
+				
 				function main(){
 					//todo 整个项目的入口函数
+				 	rederModel = RederModel();
+					rederUI = ReaderBaseFrame($('#fiction-container'));
+					rederModel.init(function(data){
+						rederUI(data)
+					});
 					EventHanlder();
 				}
 
 				function RederModel(){
 					//todo 实现和阅读器相关的数据交互的方法
+					var Chapter_id;//局部的全局变量
+					var ChapterTotal;//缓存总章数
+					var init = function(UIcallback){
+						getFictionInfo(function(){
+							getCurCharpterContent(Chapter_id,function(data){
+								//to do 拿到数据后做数据渲染
+								UIcallback && UIcallback(data);
+							});
+						})
+					}
 
+					var getFictionInfo = function(callback){
+						$.get('data/chapter.json',function(data){
+							//TODO 获得章节信息后的回调
+							console.log('data: ', data);
+							Chapter_id = data.chapters[1].chapter_id;
+							ChapterTotal = data.chapters.length;
+							callback && callback();
+						},'json');
+					}
+
+					var getCurCharpterContent = function(chapter_id, callback){
+						$.get('data/data' + chapter_id + '.json',function(data){//data运行函数时的自带参数，表示请求来的结果数据
+							if (data.result == 0) {//服务器会返回这个值，当等于0时则ok
+								var url = data.jsonp;
+								Util.getBSONP(url, function(data){
+									callback && callback(data);
+									//这个代码是 if(callback){callback()}的缩写，目的是代码健壮性的提升，防治不声明callback就运行导致的报错
+								});
+							}
+						}, 'json')
+					}
+
+					var prevChapter = function(UIcallback){
+						Chapter_id = parseInt(Chapter_id, 10);
+						if (Chapter_id == 0) {
+							console.log('prevChapter_id:', Chapter_id)
+							return
+						}
+						Chapter_id -= 1;
+						getCurCharpterContent(Chapter_id, UIcallback)
+					}
+					var nextChapter = function(UIcallback){
+						Chapter_id = parseInt(Chapter_id, 10);
+						console.log('nextChapter_id:',Chapter_id)
+						if (Chapter_id == ChapterTotal) {
+							return
+						}
+						Chapter_id += 1;
+						getCurCharpterContent(Chapter_id, UIcallback)
+					}
+					return {
+						init: init,
+						prevChapter: prevChapter,
+						nextChapter: nextChapter
+					}
 				}
 
-				function ReaderBaseFrame(){
+				function ReaderBaseFrame(container){
 					//渲染基本的UI结构
-
+					function parseChapterData(jsonData){
+						var jsonObj = JSON.parse(jsonData);
+						var html = '<h4>' + jsonObj.t + '</h4>';
+						for(var i = 0; i < jsonObj.p.length; i++){
+							html += '<p>' + jsonObj.p[i] + '</p>';
+						}
+						return html;
+					}
+					return function(data){
+						container.html(parseChapterData(data));
+					}
 				}
 
 				function EventHanlder(){
@@ -353,12 +432,14 @@
 							Dom.font_container.hide();
 						}
 					})
+					
 					Win.scroll(function(){
 						Dom.top_nav.hide();
 						Dom.bottom_nav.hide();
 						Dom.nav_pannel_bk.hide();
 						Dom.font_container.hide();
 					})
+					
 					$('#bottom_nav-typeface').click(function(){
 						if (Dom.nav_pannel_bk.css('display') == 'none') {
 							Dom.nav_pannel_bk.show();
@@ -368,6 +449,36 @@
 							Dom.font_container.hide();
 						}
 					})
+
+					$('#large-font').click(function(){
+						if (initFontSize > 20) {
+							return;//满足条件则直接跳出函数，不用再执行函数内下面的命令
+						}
+						initFontSize += 1;
+						$('#fiction-container').css('font-size',initFontSize);
+						Util.StorageSetter('font_size',initFontSize);
+					})
+
+					$('#small-font').click(function(){
+						if (initFontSize < 12) {
+							return;
+						}
+						initFontSize -= 1;
+						$('#fiction-container').css('font-size',initFontSize);
+						Util.StorageSetter('font_size',initFontSize);
+					})
+
+					$('#iprev-button').click(function(){
+						rederModel.prevChapter(function(data){
+							rederUI(data);
+						});
+					});
+
+					$('#inext-button').click(function(){
+						rederModel.nextChapter(function(data){
+							rederUI(data);
+						});
+					});
 				}
 
 				main();
