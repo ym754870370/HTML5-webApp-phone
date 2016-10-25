@@ -361,7 +361,10 @@
 						$.get('data/chapter.json',function(data){
 							//TODO 获得章节信息后的回调
 							console.log('data: ', data);
-							Chapter_id = data.chapters[1].chapter_id;
+							Chapter_id = Util.StorageGetter('last_chapter_id');
+							if (Chapter_id == null) {
+								Chapter_id = data.chapters[1].chapter_id;
+							}
 							ChapterTotal = data.chapters.length;
 							callback && callback();
 						},'json');
@@ -385,18 +388,22 @@
 							console.log('prevChapter_id:', Chapter_id)
 							return
 						}
+						console.log('Chapter_id - 1');
 						Chapter_id -= 1;
-						getCurCharpterContent(Chapter_id, UIcallback)
-					}
+						getCurCharpterContent(Chapter_id, UIcallback);
+						Util.StorageSetter('last_chapter_id', Chapter_id)
+					};
 					var nextChapter = function(UIcallback){
 						Chapter_id = parseInt(Chapter_id, 10);
 						console.log('nextChapter_id:',Chapter_id)
 						if (Chapter_id == ChapterTotal) {
-							return
+							return//跳出当前函数，为何下面的代码依旧执行了？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
 						}
+						console.log('Chapter_id + 1');
 						Chapter_id += 1;
-						getCurCharpterContent(Chapter_id, UIcallback)
-					}
+						getCurCharpterContent(Chapter_id, UIcallback);
+						Util.StorageSetter('last_chapter_id', Chapter_id)
+					};
 					return {
 						init: init,
 						prevChapter: prevChapter,
@@ -472,6 +479,7 @@
 						rederModel.prevChapter(function(data){
 							rederUI(data);
 						});
+						Win.scrollTop(0);
 					});
 
 					$('#inext-button').click(function(){
@@ -479,6 +487,7 @@
 							console.log('next');
 							rederUI(data);
 						});
+						Win.scrollTop(0);
 					});
 				}
 
