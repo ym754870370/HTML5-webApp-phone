@@ -392,7 +392,7 @@
 									reject();
 								}
 							},'json');
-						})；
+						});
 					};
 
 
@@ -408,8 +408,8 @@
 						}, 'json')
 					}
 
-					var getCurCharpterContentPromise = function(){
-						return new Promicse(function(resolve,reject){
+					var getCurCharpterContentPromise = function(){//用一个函数包裹promise这样在需要的时候才会执行，而不是一开始就进行加载内部函数
+						return new Promise(function(resolve,reject){
 							$.get('data/data' + Chapter_id + '.json',function(data){//data运行函数时的自带参数，表示请求来的结果数据
 								if (data.result == 0) {//服务器会返回这个值，当等于0时则ok
 									var url = data.jsonp;
