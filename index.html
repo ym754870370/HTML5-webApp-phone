@@ -286,6 +286,7 @@
 
 		<script>
 			(function(){
+				'use strict'//必须在开头声明该字符串 才可以使用es6 不然会报错
 				var Util = (function(){
 					var prefix = 'html5-reader-'//防止与其他项目的key冲突
 					var StorageGetter = function(key){
@@ -349,13 +350,19 @@
 					var Chapter_id;//局部的全局变量
 					var ChapterTotal;//缓存总章数
 					var init = function(UIcallback){
-						getFictionInfo(function(){
-							getCurCharpterContent(Chapter_id,function(data){
-								//to do 拿到数据后做数据渲染
-								UIcallback && UIcallback(data)
-							});
+						// getFictionInfo(function(){
+						// 	getCurCharpterContent(Chapter_id,function(data){
+						// 		//to do 拿到数据后做数据渲染
+						// 		UIcallback && UIcallback(data)
+						// 	});
+						// })
+
+						getFictionInfoPromise().then(function(d){
+							return getCurCharpterContentPromise();
+						}).then(function(d){
+							UIcallback && UIcallback(data);
 						})
-					}
+					};
 
 					var getFictionInfo = function(callback){
 						$.get('data/chapter.json',function(data){
@@ -370,6 +377,25 @@
 						},'json');
 					}
 
+					var getFictionInfoPromise = function(){
+						return new Promise(function(resolve,reject){//resolve成功 reject失败
+							$.get('data/chapter.json',function(data){
+								//TODO 获得章节信息后的回调
+								if (data.result == 0) {
+									Chapter_id = Util.StorageGetter('last_chapter_id');
+									if (Chapter_id == null) {
+										Chapter_id = data.chapters[1].chapter_id;
+									}
+									ChapterTotal = data.chapters.length;
+									resolve();
+								} else {
+									reject();
+								}
+							},'json');
+						})；
+					};
+
+
 					var getCurCharpterContent = function(chapter_id, callback){
 						$.get('data/data' + chapter_id + '.json',function(data){//data运行函数时的自带参数，表示请求来的结果数据
 							if (data.result == 0) {//服务器会返回这个值，当等于0时则ok
@@ -381,6 +407,25 @@
 							}
 						}, 'json')
 					}
+
+					var getCurCharpterContentPromise = function(){
+						return new Promicse(function(resolve,reject){
+							$.get('data/data' + Chapter_id + '.json',function(data){//data运行函数时的自带参数，表示请求来的结果数据
+								if (data.result == 0) {//服务器会返回这个值，当等于0时则ok
+									var url = data.jsonp;
+									Util.getBSONP(url, function(data){
+										// callback && callback(data);
+										//这个代码是 if(callback){callback()}的缩写，目的是代码健壮性的提升，防治不声明callback就运行导致的报错
+										resolve(data);
+									});
+								} else {
+									reject({msg: 'fail'});
+								}
+							}, 'json')
+						});
+					} 
+
+
 
 					var prevChapter = function(UIcallback){
 						Chapter_id = parseInt(Chapter_id, 10);
